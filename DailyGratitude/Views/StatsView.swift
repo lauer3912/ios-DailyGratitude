@@ -95,12 +95,13 @@ struct StatsView: View {
                 .foregroundColor(.white)
 
             HStack(spacing: 4) {
-                ForEach(moodTrendData, id: \.day) { dayData in
+                ForEach(moodTrendData.indices, id: \.self) { idx in
+                    let data = moodTrendData[idx]
                     VStack(spacing: 4) {
                         RoundedRectangle(cornerRadius: 4)
-                            .fill(moodColor(dayData.avgMood))
-                            .frame(width: 32, height: CGFloat(dayData.avgMood + 1) * 20)
-                        Text(dayData.label)
+                            .fill(moodColor(data.avgMood))
+                            .frame(width: 32, height: CGFloat(data.avgMood + 1) * 20)
+                        Text(data.label)
                             .font(.system(size: 10))
                             .foregroundColor(Color(hex: "9B9BAD"))
                     }
