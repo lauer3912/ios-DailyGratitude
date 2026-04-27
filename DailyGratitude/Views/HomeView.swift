@@ -163,9 +163,13 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity)
                     .padding()
                     .background(
-                        gratitudeText.isEmpty ?
-                        Color(hex: "4A4A5A") :
-                        LinearGradient(colors: [Color(hex: "A78BFA"), Color(hex: "7C5CBF")], startPoint: .leading, endPoint: .trailing)
+                        Group {
+                            if gratitudeText.isEmpty {
+                                Color(hex: "4A4A5A")
+                            } else {
+                                LinearGradient(colors: [Color(hex: "A78BFA"), Color(hex: "7C5CBF")], startPoint: .leading, endPoint: .trailing)
+                            }
+                        }
                     )
                     .cornerRadius(12)
             }
