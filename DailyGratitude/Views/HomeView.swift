@@ -7,6 +7,7 @@ struct HomeView: View {
     @State private var showEntrySuccess = false
 
     private let moodEmojis = ["😢", "😕", "😐", "🙂", "😊"]
+    private let moodLabels = ["Very Sad", "Sad", "Neutral", "Happy", "Very Happy"]
     private let prompts = [
         "What are three things you're grateful for today?",
         "Who made a positive impact on your day?",
@@ -63,11 +64,13 @@ struct HomeView: View {
             Image(systemName: "flame.fill")
                 .font(.system(size: 40))
                 .foregroundColor(.orange)
+                .accessibilityLabel("Streak flame icon")
 
             VStack(alignment: .leading, spacing: 4) {
                 Text("\(dataManager.currentStreak)")
                     .font(.system(size: 36, weight: .bold))
                     .foregroundColor(.white)
+                    .accessibilityLabel("\(dataManager.currentStreak) day current streak")
                 Text("Day Streak")
                     .font(.subheadline)
                     .foregroundColor(Color(hex: "9B9BAD"))
@@ -79,6 +82,7 @@ struct HomeView: View {
                 Text("\(dataManager.longestStreak)")
                     .font(.system(size: 24, weight: .semibold))
                     .foregroundColor(Color(hex: "A78BFA"))
+                    .accessibilityLabel("Best streak: \(dataManager.longestStreak) days")
                 Text("Best: \(dataManager.longestStreak) days")
                     .font(.caption)
                     .foregroundColor(Color(hex: "9B9BAD"))
@@ -87,6 +91,7 @@ struct HomeView: View {
         .padding()
         .background(Color(hex: "1C1C1E"))
         .cornerRadius(16)
+        .accessibilityElement(children: .combine)
     }
 
     private var promptCard: some View {
@@ -131,9 +136,12 @@ struct HomeView: View {
                             .font(.system(size: index == selectedMood ? 36 : 28))
                             .opacity(index == selectedMood ? 1 : 0.5)
                     }
+                    .accessibilityLabel("Mood \(index + 1): \(moodLabels[index])")
+                    .accessibilityAddTraits(index == selectedMood ? .isSelected : [])
                 }
             }
             .frame(maxWidth: .infinity)
+            .accessibilityLabel("Mood selector")
         }
         .padding()
         .background(Color(hex: "1C1C1E"))
@@ -153,6 +161,8 @@ struct HomeView: View {
                 .cornerRadius(12)
                 .foregroundColor(.white)
                 .scrollContentBackground(.hidden)
+                .accessibilityLabel("Gratitude entry text")
+                .accessibilityHint("Enter what you are grateful for today")
 
             Button {
                 saveEntry()
