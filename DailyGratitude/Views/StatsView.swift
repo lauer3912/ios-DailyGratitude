@@ -95,7 +95,7 @@ struct StatsView: View {
                 .foregroundColor(.white)
 
             HStack(spacing: 4) {
-                ForEach(moodTrendData.indices, id: \.self) { idx in
+                ForEach(0..<moodTrendData.count, id: \.self) { idx in
                     let data = moodTrendData[idx]
                     VStack(spacing: 4) {
                         RoundedRectangle(cornerRadius: 4)
